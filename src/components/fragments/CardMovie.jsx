@@ -1,43 +1,28 @@
 import React, { useEffect, useState } from "react";
 import Card from "../elements/Card";
 import { Skeleton } from "@mui/material";
-import { data } from "autoprefixer";
+import api from "../../config/api";
 
 const CardMovie = () => {
-  const dataMovie = [
-    {
-      id: 1,
-      title: "Freedom",
-      image: "/public/img/img-1.jpg",
-    },
-    {
-      id: 2,
-      title: "Archer",
-      image: "/public/img/img-2.jpg",
-    },
-    {
-      id: 3,
-      title: "After",
-      image: "/public/img/img-3.jpg",
-    },
-    {
-      id: 4,
-      title: "Avengers Infinity War",
-      image: "/public/img/img-4.jpg",
-    },
-    {
-      id: 5,
-      title: "Black Panther 2",
-      image: "/public/img/img-5.jpg",
-    },
-  ];
-
+  const [dataMovie, setDataMovie] = useState([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    setTimeout(() => {
-      setLoading(true);
-    }, 1500);
+    fetch("https://api.themoviedb.org/3/movie/popular?page=1", api.options)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was error");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setDataMovie(data.results);
+        setLoading(true);
+      })
+      .catch((error) => {
+        // Tangani kesalahan jika ada
+        console.error(error);
+      });
   }, []);
 
   return (
@@ -48,20 +33,25 @@ const CardMovie = () => {
 
       <div className="grid grid-cols-5 gap-4">
         {loading
-          ? dataMovie.map((item) => {
-              return (
-                <Card key={item.id}>
-                  <a href="" className="relative w-full h-full group">
-                    <img
-                      src={item.image}
-                      alt={item.title}
-                      className="w-full group-hover:scale-110 group-hover:transition"
-                    />
-                  </a>
-                </Card>
-              );
+          ? dataMovie.map((item, i) => {
+              if (i <= 4) {
+                return (
+                  <Card key={item.id}>
+                    <a href="" className="relative w-full h-full group">
+                      <img
+                        src={
+                          `https://image.tmdb.org/t/p/original/` +
+                          item.poster_path
+                        }
+                        alt=""
+                        className="w-full group-hover:scale-110 group-hover:transition"
+                      />
+                    </a>
+                  </Card>
+                );
+              }
             })
-          : dataMovie.map((skeleton) => {
+          : dataMovie.map(() => {
               return (
                 <div>
                   <Skeleton
