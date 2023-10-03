@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Card from "../elements/Card";
 import api from "../../config/api";
+import { Link } from "react-router-dom";
 
 const NewsMovie = () => {
   const [dataMovie, setDataMovie] = useState([]);
@@ -22,7 +23,6 @@ const NewsMovie = () => {
         setDataMovie(movies.results);
       })
       .catch((error) => {
-        // Tangani kesalahan jika ada
         console.error(error);
       });
   }, []);
@@ -37,7 +37,10 @@ const NewsMovie = () => {
         {dataMovie.map((item) => {
           return (
             <Card key={item.id}>
-              <a href="" className="relative w-full h-full group">
+              <Link
+                to={"detail/movie/" + item.id}
+                className="relative w-full h-full group"
+              >
                 <img
                   src={
                     `https://image.tmdb.org/t/p/original/` + item.poster_path
@@ -47,7 +50,7 @@ const NewsMovie = () => {
                   height={380}
                   className="w-full group-hover:scale-110 group-hover:transition"
                 />
-              </a>
+              </Link>
             </Card>
           );
         })}

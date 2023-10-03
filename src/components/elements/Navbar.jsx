@@ -5,7 +5,9 @@ const Navbar = () => {
   return (
     <div className="flex items-center justify-between h-16 px-20 text-white w-100 bg-slate-950">
       <div className="text-2xl font-bold">
-        Movi<span className="text-yellow-500">e</span>
+        <Link to={"/"}>
+          Movi<span className="text-yellow-500">e</span>
+        </Link>
       </div>
       <ul className="flex">
         <li className="ml-10">

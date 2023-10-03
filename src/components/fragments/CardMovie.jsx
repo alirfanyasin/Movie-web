@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Card from "../elements/Card";
 import { Skeleton } from "@mui/material";
 import api from "../../config/api";
+import { Link } from "react-router-dom";
 
 const CardMovie = () => {
   const [dataMovie, setDataMovie] = useState([]);
@@ -37,7 +38,10 @@ const CardMovie = () => {
               if (i <= 4) {
                 return (
                   <Card key={item.id}>
-                    <a href={item.id} className="relative w-full h-full group">
+                    <Link
+                      to={`detail/movie/` + item.id}
+                      className="relative w-full h-full group"
+                    >
                       <img
                         src={
                           `https://image.tmdb.org/t/p/original/` +
@@ -48,7 +52,7 @@ const CardMovie = () => {
                         height="380px"
                         className="w-full group-hover:scale-110 group-hover:transition"
                       />
-                    </a>
+                    </Link>
                   </Card>
                 );
               }

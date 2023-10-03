@@ -2,13 +2,17 @@ import React, { useEffect, useState } from "react";
 import api from "../config/api";
 import Layout from "../components/layouts/Layout";
 import Rating from "../components/elements/Rating";
+import { useParams } from "react-router-dom";
 
 const DetailMovie = () => {
   const [dataDetail, setDataDetail] = useState([]);
 
+  const { id } = useParams();
+  console.log("ID" + id);
+
   useEffect(() => {
     fetch(
-      "https://api.themoviedb.org/3/movie/565770?language=en-US",
+      `https://api.themoviedb.org/3/movie/${id}?language=en-US`,
       api.options
     )
       .then((response) => {
@@ -40,7 +44,7 @@ const DetailMovie = () => {
       </div>
       <div className="px-20 my-10">
         <div className="flex gap-10">
-          <div className="w-3/12">
+          <div className="w-3/12 overflow-hidden">
             <img
               src={
                 `https://image.tmdb.org/t/p/original/` + dataDetail.poster_path
