@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
@@ -8,10 +9,10 @@ const Navbar = () => {
       </div>
       <ul className="flex">
         <li className="ml-10">
-          <a href="">Home</a>
+          <Link to={"/"}>Home</Link>
         </li>
         <li className="ml-10">
-          <a href="">Trending</a>
+          <Link to={"detail/movie"}>Trending</Link>
         </li>
         <li className="ml-10">
           <a href="">TV Series</a>

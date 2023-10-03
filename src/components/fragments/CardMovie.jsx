@@ -37,13 +37,15 @@ const CardMovie = () => {
               if (i <= 4) {
                 return (
                   <Card key={item.id}>
-                    <a href="" className="relative w-full h-full group">
+                    <a href={item.id} className="relative w-full h-full group">
                       <img
                         src={
                           `https://image.tmdb.org/t/p/original/` +
                           item.poster_path
                         }
                         alt=""
+                        width="260px"
+                        height="380px"
                         className="w-full group-hover:scale-110 group-hover:transition"
                       />
                     </a>

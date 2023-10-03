@@ -1,18 +1,15 @@
 import React from "react";
-import Navbar from "../components/elements/Navbar";
 import Jumbotron from "../components/elements/Jumbotron";
 import CardMovie from "../components/fragments/CardMovie";
 import NewsMovie from "../components/fragments/NewsMovie";
-import Footer from "../components/elements/Footer";
+import Layout from "../components/layouts/Layout";
 const Index = () => {
   return (
-    <>
-      <Navbar />
+    <Layout>
       <Jumbotron />
       <CardMovie />
       <NewsMovie />
-      <Footer />
-    </>
+    </Layout>
   );
 };
 
