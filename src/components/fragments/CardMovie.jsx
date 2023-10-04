@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Card from "../elements/Card";
-import { Skeleton } from "@mui/material";
 import api from "../../config/api";
 import { Link } from "react-router-dom";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 const CardMovie = () => {
   const [dataMovie, setDataMovie] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     fetch("https://api.themoviedb.org/3/movie/popular?page=1", api.options)
@@ -24,6 +25,10 @@ const CardMovie = () => {
         // Tangani kesalahan jika ada
         console.error(error);
       });
+
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2 * 1000);
   }, []);
 
   return (
@@ -33,8 +38,17 @@ const CardMovie = () => {
       </header>
 
       <div className="grid grid-cols-5 gap-4">
-        {loading
+        {isLoading
           ? dataMovie.map((item, i) => {
+              if (i <= 4) {
+                return (
+                  <SkeletonTheme baseColor="#5D616D" highlightColor="#f0f0f0">
+                    <Skeleton count={1} height="380px" width="100%" />
+                  </SkeletonTheme>
+                );
+              }
+            })
+          : dataMovie.map((item, i) => {
               if (i <= 4) {
                 return (
                   <Card key={item.id}>
@@ -56,28 +70,6 @@ const CardMovie = () => {
                   </Card>
                 );
               }
-            })
-          : dataMovie.map(() => {
-              return (
-                <div>
-                  <Skeleton
-                    animation="wave"
-                    sx={{ bgcolor: "grey.900" }}
-                    variant="rounded"
-                    width={260}
-                    height={380}
-                  />
-                  <div className="mt-2">
-                    <Skeleton
-                      animation="wave"
-                      sx={{ bgcolor: "grey.900" }}
-                      variant="rounded"
-                      width={260}
-                      height={20}
-                    />
-                  </div>
-                </div>
-              );
             })}
       </div>
     </div>

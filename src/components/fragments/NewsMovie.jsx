@@ -2,9 +2,12 @@ import React, { useEffect, useState } from "react";
 import Card from "../elements/Card";
 import api from "../../config/api";
 import { Link } from "react-router-dom";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 const NewsMovie = () => {
   const [dataMovie, setDataMovie] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     fetch(
@@ -25,6 +28,10 @@ const NewsMovie = () => {
       .catch((error) => {
         console.error(error);
       });
+
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2 * 1500);
   }, []);
 
   return (
@@ -34,26 +41,35 @@ const NewsMovie = () => {
       </header>
 
       <div className="grid grid-cols-8 gap-4">
-        {dataMovie.map((item) => {
-          return (
-            <Card key={item.id}>
-              <Link
-                to={"detail/movie/" + item.id}
-                className="relative w-full h-full group"
-              >
-                <img
-                  src={
-                    `https://image.tmdb.org/t/p/original/` + item.poster_path
-                  }
-                  alt={item.title}
-                  width="260px"
-                  height={380}
-                  className="w-full group-hover:scale-110 group-hover:transition"
-                />
-              </Link>
-            </Card>
-          );
-        })}
+        {isLoading
+          ? dataMovie.map((item) => {
+              return (
+                <SkeletonTheme baseColor="#5D616D" highlightColor="#f0f0f0">
+                  <Skeleton count={1} height="240px" width="100%" />
+                </SkeletonTheme>
+              );
+            })
+          : dataMovie.map((item) => {
+              return (
+                <Card key={item.id}>
+                  <Link
+                    to={"detail/movie/" + item.id}
+                    className="relative w-full h-full group"
+                  >
+                    <img
+                      src={
+                        `https://image.tmdb.org/t/p/original/` +
+                        item.poster_path
+                      }
+                      alt={item.title}
+                      width="260px"
+                      height={380}
+                      className="w-full group-hover:scale-110 group-hover:transition"
+                    />
+                  </Link>
+                </Card>
+              );
+            })}
       </div>
     </div>
   );
