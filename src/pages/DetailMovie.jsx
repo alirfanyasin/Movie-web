@@ -6,7 +6,9 @@ import api from "../config/api";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
-const DetailMovie = () => {
+const DetailMovie = ({ title }) => {
+  localStorage.setItem("title", title);
+
   const [dataDetail, setDataDetail] = useState([]);
   const [video, setvideo] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -48,15 +50,6 @@ const DetailMovie = () => {
       .catch((error) => {
         console.error(error);
       });
-
-    // if (!responseVideoMovie.ok) {
-    //   throw new Error("Network response was error");
-    // } else {
-    //   const resultVideoMovie = await responseVideoMovie.json();
-    //   setvideo(responseVideoMovie);
-    //   console.log(responseVideoMovie);
-    //   return resultVideoMovie;
-    // }
   };
 
   useEffect(() => {
@@ -73,7 +66,10 @@ const DetailMovie = () => {
     <Layout>
       {isLoading ? (
         <SkeletonTheme baseColor="#5D616D" highlightColor="#f0f0f0">
-          <Skeleton count={1} height="384px" width="100%" />
+          <Skeleton
+            count={1}
+            className="md:h-96 md:w-full min-[360px]:h-52 min-[360px]:w-full"
+          />
         </SkeletonTheme>
       ) : (
         <div className="overflow-hidden w-100 h-96">
@@ -86,9 +82,9 @@ const DetailMovie = () => {
         </div>
       )}
 
-      <div className="px-20 my-10">
-        <div className="flex gap-10">
-          <div className="w-3/12 overflow-hidden">
+      <div className="md:px-20 min-[360px]:px-5 md:my-10 min-[360px]:-mt-36">
+        <div className="flex md:gap-10">
+          <div className="overflow-hidden md:w-3/12">
             {isLoading ? (
               <SkeletonTheme baseColor="#5D616D" highlightColor="#f0f0f0">
                 <Skeleton count={1} height="470px" width="100%" />
@@ -100,18 +96,18 @@ const DetailMovie = () => {
                   dataDetail.poster_path
                 }
                 alt=""
-                className="rounded-xl"
+                className="rounded-xl min-[360px]:hidden"
               />
             )}
           </div>
 
-          <div className="w-9/12 text-white">
+          <div className="container text-white md:w-9/12">
             {isLoading ? (
               <SkeletonTheme baseColor="#5D616D" highlightColor="#f0f0f0">
                 <Skeleton count={1} height="50px" width="50%" />
               </SkeletonTheme>
             ) : (
-              <h1 className="text-3xl font-semibold">{dataDetail.title}</h1>
+              <h1 className="text-3xl font-semibold ">{dataDetail.title}</h1>
             )}
             {isLoading ? (
               <div className="mt-4">
@@ -139,7 +135,7 @@ const DetailMovie = () => {
             ) : (
               <div>
                 <p className="mt-4 text-slate-400">"{dataDetail.tagline}"</p>
-                <div className="flex mt-4 text-slate-400">
+                <div className="container flex mt-4 text-slate-400">
                   {dataDetail.genres &&
                     dataDetail.genres.map((item) => {
                       return (
@@ -154,7 +150,7 @@ const DetailMovie = () => {
                   <span className="text-white">Release :</span>{" "}
                   {dataDetail.release_date}
                 </p>
-                <div className="flex mt-4">
+                <div className="container flex mt-4">
                   <p className="mr-2">Production Companies : </p>
                   {dataDetail.production_companies &&
                     dataDetail.production_companies.map((company) => {
@@ -179,7 +175,7 @@ const DetailMovie = () => {
               <Link
                 to={`https:/www.youtube.com/watch?v=` + video.key}
                 target="_blank"
-                className="flex items-center justify-center w-48 h-12 mt-5 font-semibold text-black bg-yellow-500 rounded-lg"
+                className="flex items-center justify-center w-48 h-12 mt-5 mb-5 font-semibold text-black bg-yellow-500 rounded-lg"
               >
                 Watch Now
               </Link>

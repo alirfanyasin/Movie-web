@@ -19,10 +19,9 @@ const CardMovie = () => {
       })
       .then((data) => {
         setDataMovie(data.results);
-        setLoading(true);
+        setIsLoading(true);
       })
       .catch((error) => {
-        // Tangani kesalahan jika ada
         console.error(error);
       });
 
@@ -32,17 +31,21 @@ const CardMovie = () => {
   }, []);
 
   return (
-    <div className="px-20">
+    <div className="md:px-20 min-[360px]:px-3">
       <header className="my-8">
         <h1 className="text-2xl font-semibold text-white">Populars</h1>
       </header>
 
-      <div className="grid grid-cols-5 gap-4">
+      <div className="md:gap-4 grid md:grid-cols-5 min-[360px]:grid-cols-2 min-[360px]:gap-2">
         {isLoading
           ? dataMovie.map((item, i) => {
               if (i <= 4) {
                 return (
-                  <SkeletonTheme baseColor="#5D616D" highlightColor="#f0f0f0">
+                  <SkeletonTheme
+                    baseColor="#5D616D"
+                    highlightColor="#f0f0f0"
+                    key={i}
+                  >
                     <Skeleton count={1} height="380px" width="100%" />
                   </SkeletonTheme>
                 );

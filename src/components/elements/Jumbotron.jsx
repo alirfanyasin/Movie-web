@@ -48,8 +48,8 @@ const Jumbotron = () => {
             style={{ backgroundImage: `url(${images[0]})` }}
             className="bg-cover h-96"
           >
-            <div className="flex justify-center">
-              <h1 className="z-10 text-xl font-light text-white mt-80">
+            <div className="flex justify-center text-center">
+              <h1 className="z-10 md:text-xl min-[360px]:text-md font-light text-white mt-80">
                 "Bawa Imajinasi Anda Hidup dengan Film"
               </h1>
             </div>
@@ -63,8 +63,8 @@ const Jumbotron = () => {
           style={{ backgroundImage: `url(${images[1]})` }}
           className="bg-cover h-96"
         >
-          <div className="flex justify-center">
-            <h1 className="z-10 text-xl font-light text-white mt-80">
+          <div className="flex justify-center text-center">
+            <h1 className="z-10 md:text-xl min-[360px]:text-md font-light text-white mt-80">
               "Nikmati Petualangan Tanpa Batas di Bioskop Terdekat Anda"
             </h1>
           </div>
@@ -76,8 +76,8 @@ const Jumbotron = () => {
           style={{ backgroundImage: `url(${images[2]})` }}
           className="bg-cover h-96"
         >
-          <div className="flex justify-center">
-            <h1 className="z-10 text-xl font-light text-white mt-80">
+          <div className="flex justify-center text-center">
+            <h1 className="z-10 md:text-xl min-[360px]:text-md font-light text-white mt-80">
               "Emosi, Tawa, dan Kebahagiaan, Semua dalam Satu Ruangan"
             </h1>
           </div>
